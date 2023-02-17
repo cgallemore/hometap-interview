@@ -36,7 +36,7 @@ class HouseCanaryClient:
         else:
             return requests.get(f"{self.base_url}/{endpoint}", params=params, auth=(self.api_key, self.api_secret))
 
-    def get_property_details(self, address: str, zipcode: str) -> PropertyDetail:
+    def get_property_details(self, address: str, zipcode: str) -> dict:
         """
         Fetch the property details from the HouseCanary API
 
