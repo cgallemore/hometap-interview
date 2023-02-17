@@ -13,7 +13,6 @@ def property_details():
     """
     address = request.args.get('address', type=str)
     zipcode = request.args.get('zipcode', type=str)
-    import ipdb; ipdb.set_trace()
 
     if address and zipcode:
         client = HouseCanaryClient()
