@@ -12,7 +12,7 @@ def test_property_details(client, requests_mock, house_canary_response):
     requests_mock.get(ENDPOINT_TO_MOCK, json=house_canary_response)
     response = client.get("/api/property/details?address=123+Main+St&zipcode=55555")
     assert response.status_code == 200
-    property_data = response.json['property/details']['result']['property']
+    property_data = response.json['property']
 
     assert property_data['sewer'] == 'municipal'
 

@@ -9,7 +9,7 @@ def test_house_canary_get_property_details(app, requests_mock, house_canary_resp
         api_client = HouseCanaryClient()
         requests_mock.get(ENDPOINT_TO_MOCK, json=house_canary_response)
         response = api_client.get_property_details('123 Main St', '55555')
-        assert response['property/details']['result']['property']['sewer'] == 'municipal'
+        assert response['property']['sewer'] == 'municipal'
 
 
 def test_house_canary_get_property_details_404(app, requests_mock, house_canary_response):

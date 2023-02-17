@@ -3,6 +3,7 @@ import requests
 from flask import current_app
 
 from hometap_interview.exceptions import NotFoundException
+from hometap_interview.models.house_canary import PropertyDetail
 
 
 class HouseCanaryClient:
@@ -35,7 +36,7 @@ class HouseCanaryClient:
         else:
             return requests.get(f"{self.base_url}/{endpoint}", params=params, auth=(self.api_key, self.api_secret))
 
-    def get_property_details(self, address: str, zipcode: str) -> dict:
+    def get_property_details(self, address: str, zipcode: str) -> PropertyDetail:
         """
         Fetch the property details from the HouseCanary API
 
@@ -50,6 +51,10 @@ class HouseCanaryClient:
         # other types of status codes like 401, 429, 500, etc that were applicable
         response = self._get('property/details', address=address, zipcode=zipcode)
         if response.status_code == 200:
-            return response.json()
+            result = response.json()['property/details']['result']
+            
+            # TODO, not handling any validation errors for this case, but that would
+            # need to be added and handled properly
+            return PropertyDetail.parse_obj(result).dict()
         elif response.status_code == 404:
             raise NotFoundException(f"The property at {address} {zipcode} could not be found")
