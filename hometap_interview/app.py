@@ -7,7 +7,7 @@ from hometap_interview.config import DevConfig
 
 
 def create_app(config=None):
-    # create and configure the app
+    # By default, if no config is provided use the DevConfig
     if not config:
         config = DevConfig
 

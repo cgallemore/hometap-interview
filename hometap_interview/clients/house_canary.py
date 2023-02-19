@@ -27,14 +27,7 @@ class HouseCanaryClient:
         :return: Returns the Response object from the reqests get call
         :rtype: requests.Response
         """
-        # For the purposes of this inteview, I have a mock endpoint setup at mocky.io, if it's configured in the app
-        # config just use that raw endpoint, otherwise the code is written to interface directly with the
-        # House Canary API
-        if self.mock_endpoint:
-            current_app.logger.info('Using the mock endpoint to return property details')
-            return requests.get(self.mock_endpoint)
-        else:
-            return requests.get(f"{self.base_url}/{endpoint}", params=params, auth=(self.api_key, self.api_secret))
+        return requests.get(f"{self.base_url}/{endpoint}", params=params, auth=(self.api_key, self.api_secret))
 
     def get_property_details(self, address: str, zipcode: str) -> dict:
         """

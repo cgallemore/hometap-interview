@@ -14,8 +14,8 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
-    # Overrides the HOUSE_CANARY_URL with the mock I setup at mocky.io
-    MOCK_CANARY_ENDPOINT = 'https://run.mocky.io/v3/9f456470-7a00-4171-87e3-c4e83f8e5bbc'
+    # Overrides the HOUSE_CANARY_URL with the mock I setup at beeceptor
+    HOUSE_CANARY_URL = 'https://cgallemore.free.beeceptor.com'
     DEBUG = True
     TESTING = False
 

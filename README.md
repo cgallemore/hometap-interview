@@ -65,5 +65,6 @@ This project uses pytest and you can simply run the the tests script like so, wh
 
 - Flask is the webframework used, written with Python 3.10.x
 - Pytest and pytest-cov for unit tests and coverage
-- Used Mocky.io to create an endpoint that mocked the HouseCanary Analytics API for getting property details.
-    - The endpoint I created is here: https://run.mocky.io/v3/9f456470-7a00-4171-87e3-c4e83f8e5bbc
+- Used Beeceptor to mock out the property details endpoint for the House Canary API.  It matches on the path starting with /property/details
+  and will return the same JSON data as described in the HouseCanary API.  The root url is `https://cgallemore.free.beeceptor.com`.  When running
+  the app locally, the DevConfig updates the `HOUSE_CANARY_URL` with this mock endpoint.
