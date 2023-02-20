@@ -68,3 +68,27 @@ This project uses pytest and you can simply run the the tests script like so, wh
 - Used Beeceptor to mock out the property details endpoint for the House Canary API.  It matches on the path starting with /property/details
   and will return the same JSON data as described in the HouseCanary API.  The root url is `https://cgallemore.free.beeceptor.com`.  When running
   the app locally, the DevConfig updates the `HOUSE_CANARY_URL` with this mock endpoint.
+
+## Suggested Next Steps
+
+Based on refining the scope and requirments the items below are suggestions for completing an MVP:
+
+- Authentication: The project doesn't currently have any authentication and I'd recommend adding that.  Assuming we already have an authnetication service, integrating with
+  that would be my first option, otherwise there are some options like Basic Auth, OAuth, etc that we would want to look into and make a decision on.
+- CORS: A clarifying question I'd have for product on the scope and requirements is if the web app was going to consume the app from the client side and if so, we would need
+  to add CORS support to this service.
+- Thinking more broadly, do we have other API's that are public facing as well, and if so are we exposing each of these individually?  If so, would a better API Gateway strategy
+  make more sense here?  For example, using something like Kong would allow us as a business to have a single API Gateway for all API's we would need to expose publicly.  Additionally
+  Kong would also provide additionaly functionally like authentication, CORS, rate limiting, etc that might be desirable for all API's reducing what would need to be implemented in
+  each service.
+- Monitoring/Alerting: For an MVP I'd want to ensure this service has the proper alerts/monitors configured.  Ideally, this is integrating with existing tools and patterns we already 
+  have.  Tools I've used in the past for this are Sentry, DataDog, New Relic, etc.
+- Analytics: Open question, are there any type of analytics we want to track and monitor?  If so, would want to be sure to add that as part of the deliverable as well.
+- Performance:  
+  - Assuming this is just a service to proxy requests to other third party services, I might chose to utilize an async approach with an ASGI web server.  Most python
+    frameworks support this already, and given the app would be I/O bound, an asnyc approach makes sense. 
+  - Caching: Didn't add any type of caching, but if we understood what type of load to expect, we might want to add that.  This could come later, after an MVP launch, once we better understand the load.
+- Rate Limiting: The House Canary API has rate limits, I didn't add any logic to handle that for this exercise, but that's something we would want to think about and make a decision on
+  how we handle that.  The simplest case is to just handle the 429 errors from the third party, a more complex solution is to track API calls in the app.  The later would allow us to
+  trigger alerts potentially if we are getting close to the limits.
+- Swagger Docs:  Didn't add this, but it's nice to have for documenting your API and providing an interface for consumers to reference and test with.
